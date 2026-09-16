@@ -1,0 +1,29 @@
+#Compiled binaries 
+
+matrix 
+formnet 
+
+#Object files 
+
+*.o 
+*.out 
+
+
+#Vim 
+
+*.un~
+*.swp
+*.swo
+.*.un~
+#Editor config 
+.vscode/
+.idea/ 
+
+#OS junk 
+
+.DS_Store 
+
+
+# LibreOffice / Office
+.~lock.*#
+~$*
