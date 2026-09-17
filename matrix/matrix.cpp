@@ -1,6 +1,7 @@
 #include<iostream> 
 #include<vector>
 #include<random>
+#include<cmath>
 
 struct Matrix {
 
@@ -15,6 +16,93 @@ void addMatrix(Matrix a, Matrix b ) ;
 void multiplyMatrix(Matrix a, Matrix b ) ; 
 Matrix transposeMatrix(Matrix a ) ; 
 Matrix randomNumberInitiator() ; 
+
+// non-lineriaty 
+
+double sigmoid(double x) ; 
+double relu(double x ) ; 
+Matrix applySigmoid(Matrix m ) ; 
+Matrix applyRelu(Matrix m ) ; 
+
+// scalar function 
+
+
+double sigmoid (double x ) {
+	
+	double exp = std::exp(-x) ; 
+
+	return 1/ ( 1 + exp )  ; 
+
+
+
+}
+
+// scalar function 
+double relu( double x) {
+
+	if (x < 0 ) {
+	
+		return 0 ; 
+	
+	} else {
+	
+		return x ; 
+		
+	
+	}
+
+
+} 
+
+// takes a matrix appliesSigmoid 
+// to all the elements 
+// returns  a new matrix with the sigmoid applied 
+
+
+Matrix applySigmoid ( Matrix m ) {
+	Matrix result ; 
+	result.rows = m.rows ;
+	result.cols = m.cols ; 
+	result.data = std::vector<std::vector<double>>(result.rows, std::vector<double>(result.cols, 0.0)) ; 
+	for (int i =0 ; i < result.rows ; i++) {
+		for (int j =0 ; j < result.cols ; j++) {
+			
+			result.data[i][j] = sigmoid(m.data[i][j]) ; 
+			
+			
+		
+		}
+		
+	
+	}
+
+	return result ; 
+
+}
+
+
+// takes a matrix 
+// appliesRelu to all the elements 
+// and returns the resultant matrix 
+Matrix applyRelu ( Matrix m ) {            
+        Matrix result ;                       
+        result.rows = m.rows ;                
+        result.cols = m.cols ;                
+        result.data = std::vector<std::vector<double>>(result.rows, std::vector<double>(result.cols,0.0)) ; 
+	for (int i =0 ; i < result.rows ; i++) {
+                for (int j =0 ; j < result.cols ; j++) {
+                        
+                        result.data[i][j] = relu(m.data[i][j]) ;
+
+
+
+                }
+
+
+        }
+
+	return result ; 
+}
 
 
 // randoNumber generation 
@@ -147,7 +235,10 @@ void addMatrix (Matrix a, Matrix b) {
 
 
 
-}
+} 
+
+
+
 int main() {
 	
 	Matrix a ; 
@@ -189,12 +280,14 @@ int main() {
 	} 
 
 	// random matrix for neural weights at the beginining 	
-          Matrix randomMatrix  ; 
+         
+   	  Matrix randomMatrix  ; 
 	  randomMatrix.rows = 3 ; 
 	  randomMatrix.cols = 3 ; 
 	  randomMatrix.data = std::vector<std::vector<double>>(randomMatrix.rows,std::vector<double>(randomMatrix.cols,0.0)) ; 
 	  randomMatrix = randomNumberInitiator() ; 
 	  
+	  std::cout<<"Randomised Matrix \n\n" ;  
 	  
 	  for (int i =0 ; i < randomMatrix.rows; i++) {
                 for(int j =0; j < randomMatrix.cols; j++) {
@@ -206,7 +299,54 @@ int main() {
                 std::cout<<"\n" ;
 
         }
+	 
+	  std::cout<<"\n" ; 
+	  Matrix d ; 
+	  d.rows = 2 ; 
+	  d.cols = 3 ; 
+	  d.data = {{-2,-1,0}, 
+	  	    {1,2,3}} ;
 
+	  Matrix appliedSigmoidResult ; 
+	  appliedSigmoidResult.rows  = d.rows ; 
+	  appliedSigmoidResult.cols = d.cols ; 
+	  appliedSigmoidResult.data = std::vector< std::vector<double>>(appliedSigmoidResult.rows, std::vector<double> (appliedSigmoidResult.cols,0.0)) ;	
+	  appliedSigmoidResult=  applySigmoid(d) ; 
+	  
+	  std::cout<<"\nappliedSigmoidResult: \n\n" ;  
+
+	  for (int i = 0 ; i < d.rows; i++) {
+	  	for(int j = 0 ; j < d.cols; j++) {
+			std::cout<< appliedSigmoidResult.data[i][j]<<" " ; 
+			
+		
+		
+		}
+		std::cout<<"\n" ; 
+	  	
+	  
+	  }
+	
+	  Matrix appliedReluResult ; 
+	  appliedReluResult.rows = d.rows ;
+	  appliedReluResult.cols = d.cols ; 
+	  appliedReluResult.data = std::vector<std::vector<double>>(appliedReluResult.rows, std::vector<double>(appliedReluResult.cols, 0.0)) ; 
+
+	  std::cout<<"appliedReluResult\n\n" ; 
+	  appliedReluResult = applyRelu(d) ; 
+	  for (int i =0; i < d.rows; i++) {
+	  	for(int j = 0 ; j < d.cols ; j++ ) {
+			
+			std::cout<<appliedReluResult.data[i][j]<<" " ; 
+		
+		
+		}
+
+
+		std::cout<<"\n" ; 
+	  
+	  
+	  }
 
 
 
