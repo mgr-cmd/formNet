@@ -190,7 +190,7 @@ func main() {
 
 	fmt.Printf("\n------ Arsenal Last 5 Avg Data ------------  \n\n")
 	fmt.Printf("Average Score: %f\n", avgData.AvgGoalsScored)
-	fmt.Printf("Average Goals Conceded: %f\n", avgData.AvgGoalsConceded)
+	fmt.Printf("Average Goals Conceded: %f\n", avgData.AvgGoalsConcededi)
 	fmt.Printf("Win Rate : %f\n", avgData.WinRate)
 	fmt.Printf("Avg Points: %f\n", avgData.PointsPerGame)
 
